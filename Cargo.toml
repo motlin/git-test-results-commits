@@ -1,0 +1,10 @@
+[package]
+name = "test-results"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+regex = "1.5"
+log = "0.4"
+simple_logger = "1.11"
+structopt = "0.3"
