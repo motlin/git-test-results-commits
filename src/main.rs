@@ -14,6 +14,9 @@ struct Opt
 
     #[structopt(long, default_value = "%B")]
     format: String,
+
+    #[structopt(long, default_value = "always")]
+    color: String,
 }
 
 fn setup_logging(debug: bool)
@@ -29,12 +32,15 @@ fn setup_logging(debug: bool)
     SimpleLogger::new().with_level(level).init().unwrap();
 }
 
-fn get_commit_message(treeish: &str, format: &str) -> String
+fn get_commit_message(treeish: &str, format: &str, color: &str) -> String
 {
     let commit_sha: String = treeish.replace("^{tree}", "");
     debug!("Fetching commit message for SHA: {}", commit_sha);
 
-    let command = format!("git log --format='{}' -n 1 {}", format, commit_sha);
+    let command = format!(
+        "git log --format='{}' --color={} -n 1 {}",
+        format, color, commit_sha
+    );
     debug!("Running command: {}", command);
 
     match Command::new("sh").arg("-c").arg(&command).output()
@@ -72,8 +78,12 @@ fn get_commit_message(treeish: &str, format: &str) -> String
     }
 }
 
-fn process_git_log<R: BufRead, W: Write>(reader: R, writer: &mut W, format: &str)
-    -> io::Result<()>
+fn process_git_log<R: BufRead, W: Write>(
+    reader: R,
+    writer: &mut W,
+    format: &str,
+    color: &str,
+) -> io::Result<()>
 {
     let sha_regex: Regex = Regex::new(r"^[a-f0-9]{40}").unwrap();
 
@@ -87,10 +97,10 @@ fn process_git_log<R: BufRead, W: Write>(reader: R, writer: &mut W, format: &str
         if sha_regex.is_match(&line)
         {
             let treeish: &str = line.split_whitespace().next().unwrap();
-            let commit_message: String = get_commit_message(treeish, format);
+            let commit_message: String = get_commit_message(treeish, format, color);
             writeln!(
                 writer,
-                "{:<width$} | {}",
+                "{:<width$} {}",
                 line,
                 commit_message,
                 width = max_line_length
@@ -114,7 +124,7 @@ fn main() -> io::Result<()>
     debug!("Starting git log processing");
     let stdin = io::stdin();
     let stdout = io::stdout();
-    process_git_log(stdin.lock(), &mut stdout.lock(), &opt.format)?;
+    process_git_log(stdin.lock(), &mut stdout.lock(), &opt.format, &opt.color)?;
     debug!("Finished processing git log");
     Ok(())
 }
