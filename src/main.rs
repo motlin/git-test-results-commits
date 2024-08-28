@@ -12,7 +12,10 @@ struct Opt
     #[structopt(long)]
     debug: bool,
 
-    #[structopt(long, default_value = "%B")]
+    #[structopt(
+        long,
+        default_value = "%C(auto)%(decorate)%C(reset) %C(normal)%<|(-1,trunc)%s%C(reset)"
+    )]
     format: String,
 
     #[structopt(long, default_value = "always")]
@@ -49,15 +52,8 @@ fn get_commit_message(treeish: &str, format: &str, color: &str) -> String
         {
             if output.status.success()
             {
-                let message = String::from_utf8_lossy(&output.stdout)
-                    .trim()
-                    .chars()
-                    .take(120)
-                    .collect::<String>();
-                debug!(
-                    "Commit message retrieved: {}...",
-                    &message.chars().take(120).collect::<String>()
-                );
+                let message = String::from_utf8_lossy(&output.stdout).trim().to_string();
+                debug!("Commit message retrieved: {}", message);
                 message
             }
             else
