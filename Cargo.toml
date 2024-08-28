@@ -7,4 +7,4 @@ edition = "2021"
 regex = "1.5"
 log = "0.4"
 simple_logger = "5.0"
-structopt = "0.3"
+clap = { version = "4.5.16", features = ["derive"] }

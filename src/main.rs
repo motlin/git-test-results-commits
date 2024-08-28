@@ -1,24 +1,24 @@
+use clap::Parser;
 use log::{debug, error, LevelFilter};
 use regex::Regex;
 use simple_logger::SimpleLogger;
 use std::io::{self, BufRead, Write};
 use std::process::Command;
-use structopt::StructOpt;
 
-#[derive(StructOpt, Debug)]
-#[structopt(name = "git-log-formatter")]
+#[derive(Parser, Debug)]
+#[command(name = "git-log-formatter")]
 struct Opt
 {
-    #[structopt(long)]
+    #[arg(long)]
     debug: bool,
 
-    #[structopt(
+    #[arg(
         long,
         default_value = "%C(auto)%(decorate)%C(reset) %C(normal)%<|(-1,trunc)%s%C(reset)"
     )]
     format: String,
 
-    #[structopt(long, default_value = "always")]
+    #[arg(long, default_value = "always")]
     color: String,
 }
 
@@ -114,7 +114,7 @@ fn process_git_log<R: BufRead, W: Write>(
 
 fn main() -> io::Result<()>
 {
-    let opt = Opt::from_args();
+    let opt = Opt::parse();
     setup_logging(opt.debug);
 
     debug!("Starting git log processing");
