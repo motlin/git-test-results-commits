@@ -11,6 +11,9 @@ struct Opt
 {
     #[structopt(long)]
     debug: bool,
+
+    #[structopt(long, default_value = "%B")]
+    format: String,
 }
 
 fn setup_logging(debug: bool)
@@ -26,12 +29,12 @@ fn setup_logging(debug: bool)
     SimpleLogger::new().with_level(level).init().unwrap();
 }
 
-fn get_commit_message(treeish: &str) -> String
+fn get_commit_message(treeish: &str, format: &str) -> String
 {
     let commit_sha: String = treeish.replace("^{tree}", "");
     debug!("Fetching commit message for SHA: {}", commit_sha);
 
-    let command = format!("git log --format=%B -n 1 {}", commit_sha);
+    let command = format!("git log --format='{}' -n 1 {}", format, commit_sha);
     debug!("Running command: {}", command);
 
     match Command::new("sh").arg("-c").arg(&command).output()
@@ -69,7 +72,8 @@ fn get_commit_message(treeish: &str) -> String
     }
 }
 
-fn process_git_log<R: BufRead, W: Write>(reader: R, writer: &mut W) -> io::Result<()>
+fn process_git_log<R: BufRead, W: Write>(reader: R, writer: &mut W, format: &str)
+    -> io::Result<()>
 {
     let sha_regex: Regex = Regex::new(r"^[a-f0-9]{40}").unwrap();
 
@@ -83,7 +87,7 @@ fn process_git_log<R: BufRead, W: Write>(reader: R, writer: &mut W) -> io::Resul
         if sha_regex.is_match(&line)
         {
             let treeish: &str = line.split_whitespace().next().unwrap();
-            let commit_message: String = get_commit_message(treeish);
+            let commit_message: String = get_commit_message(treeish, format);
             writeln!(
                 writer,
                 "{:<width$} | {}",
@@ -110,7 +114,7 @@ fn main() -> io::Result<()>
     debug!("Starting git log processing");
     let stdin = io::stdin();
     let stdout = io::stdout();
-    process_git_log(stdin.lock(), &mut stdout.lock())?;
+    process_git_log(stdin.lock(), &mut stdout.lock(), &opt.format)?;
     debug!("Finished processing git log");
     Ok(())
 }
