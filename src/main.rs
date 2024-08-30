@@ -114,7 +114,7 @@ fn process_git_log<R: BufRead, W: Write>(
 
 fn main() -> io::Result<()>
 {
-    let opt = Opt::parse();
+    let opt = Opt::parse_from(std::env::args());
     setup_logging(opt.debug);
 
     debug!("Starting git log processing");
