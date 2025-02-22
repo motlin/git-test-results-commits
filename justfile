@@ -2,13 +2,25 @@
 default:
     @just --list --unsorted
 
-# `cargo fmt`
+# `cargo +nightly fmt`
 fix:
-    cargo fmt
+    cargo +nightly fmt
+
+# `cargo +nightly build`
+build: fix
+	cargo +nightly build
+
+# `cargo +nightly test`
+test: fix
+	cargo +nightly test
+
+# `cargo +nightly run`
+run: fix
+	cargo +nightly run
 
 # `cargo build --release`
 release: fix
-    cargo build --release
+    cargo +nightly build --release
 
 # Install binary to $XDG_BIN_HOME
 install: release
