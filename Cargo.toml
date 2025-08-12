@@ -7,4 +7,4 @@ edition = "2021"
 regex = "1.11.1"
 log = "0.4.27"
 simple_logger = "5.0.0"
-clap = { version = "4.5.34", features = ["derive"] }
+clap = { version = "4.5.45", features = ["derive"] }
