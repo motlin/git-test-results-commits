@@ -22,6 +22,9 @@ run: fix
 release: fix
     cargo +nightly build --release
 
+# Run all pre-commit checks
+precommit: fix build test
+
 # Install binary to $XDG_BIN_HOME
 install: release
     #!/usr/bin/env bash
