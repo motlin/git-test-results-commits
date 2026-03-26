@@ -1,0 +1,32 @@
+# Jobs that run on push to main, after pull requests are merged.
+
+on:
+    push:
+        branches:
+            - main
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v6
+
+            - uses: actions/cache@v4
+              with:
+                  key: cargo-${{ hashFiles('**/Cargo.lock') }}
+                  path: |
+                      ~/.cargo/registry
+                      ~/.cargo/git
+                      target
+                  restore-keys: |
+                      cargo-
+
+            - uses: jdx/mise-action@v4
+
+            - run: rustup component add rustfmt
+
+            - run: just build

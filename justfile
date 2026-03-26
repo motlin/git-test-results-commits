@@ -1,6 +1,17 @@
+set dotenv-filename := ".envrc"
+
+import ".just/console.just"
+import ".just/git.just"
+import ".just/git-test.just"
+
 # `just --list --unsorted`
 default:
     @just --list --unsorted
+
+# `mise install`
+mise:
+    mise install --quiet
+    mise current
 
 # `cargo +nightly fmt`
 fix:
@@ -22,8 +33,12 @@ run: fix
 release: fix
     cargo +nightly build --release
 
+# clean
+@clean: _clean-git
+
 # Run all pre-commit checks
-precommit: fix build test
+precommit:
+    pre-commit run --all-files
 
 # Install binary to $XDG_BIN_HOME
 install: release
@@ -44,3 +59,6 @@ install: release
 
     echo "Symlink created: $SOURCE_BINARY -> $TARGET_DIR/"
 
+# Override this with a command called `woof` which notifies you in whatever ways you prefer.
+# My `woof` command uses `echo`, `say`, and sends a Pushover notification.
+echo_command := env('ECHO_COMMAND', "echo")

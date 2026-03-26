@@ -1,0 +1,10 @@
+[tools]
+rust = "nightly"
+just = "1.46.0"
+node = "24.13.0"
+"npm:markdownlint-cli2" = "0.18.1"
+"npm:prettier" = "3.8.1"
+"npm:strip-ansi-cli" = "4.0.0"
+
+[env]
+TERM = 'xterm-256color'
