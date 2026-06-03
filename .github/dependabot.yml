@@ -1,27 +1,36 @@
 version: 2
 updates:
-    - package-ecosystem: "cargo"
-      directory: "/"
+    - package-ecosystem: 'cargo'
+      directory: '/'
       schedule:
-          interval: "daily"
-          time: "07:00"
-          timezone: America/New_York
+          interval: 'daily'
+          time: '07:00'
+          timezone: 'America/New_York'
       open-pull-requests-limit: 25
       labels:
-          - "dependencies"
+          - 'dependencies'
+      groups:
+          clap-ecosystem:
+              patterns:
+                  - 'clap'
+                  - 'clap_*'
+          logging-ecosystem:
+              patterns:
+                  - 'log'
+                  - 'simple_logger'
       commit-message:
-          prefix: "dependabot"
-          include: "scope"
+          prefix: 'dependabot'
+          include: 'scope'
 
-    - package-ecosystem: "github-actions"
-      directory: "/"
+    - package-ecosystem: 'github-actions'
+      directory: '/'
       schedule:
-          interval: "daily"
-          time: "07:00"
-          timezone: America/New_York
+          interval: 'daily'
+          time: '07:00'
+          timezone: 'America/New_York'
       open-pull-requests-limit: 25
       labels:
-          - "dependencies"
+          - 'dependencies'
       commit-message:
-          prefix: "dependabot"
-          include: "scope"
+          prefix: 'dependabot'
+          include: 'scope'
