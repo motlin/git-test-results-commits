@@ -4,6 +4,9 @@ on:
     pull_request:
     merge_group:
 
+permissions:
+    contents: read
+
 concurrency:
     group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
     cancel-in-progress: true
@@ -88,6 +91,10 @@ jobs:
 
     reviewdog-markdownlint:
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            checks: write
+            pull-requests: write
         steps:
             - uses: actions/checkout@v7
 
@@ -99,6 +106,10 @@ jobs:
 
     reviewdog-yamllint:
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            checks: write
+            pull-requests: write
         steps:
             - uses: actions/checkout@v7
 
@@ -110,6 +121,10 @@ jobs:
 
     reviewdog-actionlint:
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            checks: write
+            pull-requests: write
         steps:
             - uses: actions/checkout@v7
 
