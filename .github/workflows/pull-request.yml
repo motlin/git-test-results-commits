@@ -15,7 +15,7 @@ jobs:
     forbid-merge-commits:
         runs-on: ubuntu-latest
         steps:
-            - uses: motlin/forbid-merge-commits-action@main
+            - uses: motlin/forbid-merge-commits-action@e79f9ed1c54b0bfb9e8a4ecaa8acfabfd01c1953 # main
 
     automerge-dependabot:
         if: github.event.pull_request.user.login == 'dependabot[bot]'
@@ -24,7 +24,7 @@ jobs:
             pull-requests: write
             contents: write
         steps:
-            - uses: actions/checkout@v7
+            - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
             - name: Enable auto-merge for Dependabot PR
               run: gh pr merge --rebase --auto "${{ github.event.pull_request.number }}"
@@ -37,13 +37,13 @@ jobs:
             contents: write
             pull-requests: write
         steps:
-            - uses: actions/checkout@v7
+            - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
               with:
                   ref: ${{ github.event.pull_request.head.ref }}
                   repository: ${{ github.event.pull_request.head.repo.full_name }}
                   token: ${{ secrets.GITHUB_TOKEN }}
 
-            - uses: jdx/mise-action@v4.2.4
+            - uses: jdx/mise-action@7e36c90d9ab29c415a2384db3006f3ec8a8cc654 # v4.2.4
 
             - name: Configure Git
               run: |
@@ -74,13 +74,13 @@ jobs:
             contents: write
             pull-requests: write
         steps:
-            - uses: actions/checkout@v7
+            - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
               with:
                   ref: ${{ github.event.pull_request.head.ref }}
                   repository: ${{ github.event.pull_request.head.repo.full_name }}
                   token: ${{ secrets.GITHUB_TOKEN }}
 
-            - uses: jdx/mise-action@v4.2.4
+            - uses: jdx/mise-action@7e36c90d9ab29c415a2384db3006f3ec8a8cc654 # v4.2.4
 
             - name: Configure Git
               run: |
@@ -111,17 +111,17 @@ jobs:
             contents: write
             pull-requests: write
         steps:
-            - uses: actions/checkout@v7
+            - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
               with:
                   ref: ${{ github.event.pull_request.head.ref }}
                   repository: ${{ github.event.pull_request.head.repo.full_name }}
                   token: ${{ secrets.GITHUB_TOKEN }}
 
-            - uses: actions/setup-python@v7
+            - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
               with:
                   python-version: "3.x"
 
-            - uses: jdx/mise-action@v4.2.4
+            - uses: jdx/mise-action@7e36c90d9ab29c415a2384db3006f3ec8a8cc654 # v4.2.4
             - run: rustup component add rustfmt
 
             - name: Configure Git
