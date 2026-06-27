@@ -16,6 +16,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+              with:
+                  persist-credentials: false
             - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
               with:
                   python-version: "3.x"
@@ -27,6 +29,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+              with:
+                  persist-credentials: false
 
             - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
               with:
@@ -48,6 +52,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+              with:
+                  persist-credentials: false
 
             - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
               with:
@@ -71,6 +77,7 @@ jobs:
             - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
               with:
                   ref: ${{ github.event.pull_request.head.sha }}
+                  persist-credentials: false
 
             - uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d # v4.2.0
 
@@ -83,6 +90,7 @@ jobs:
             - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
               with:
                   ref: ${{ github.event.pull_request.head.sha }}
+                  persist-credentials: false
 
             - uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d # v4.2.0
 
@@ -97,6 +105,8 @@ jobs:
             pull-requests: write
         steps:
             - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+              with:
+                  persist-credentials: false
 
             - uses: reviewdog/action-markdownlint@844fd04b127b0d78328653f182d32988ad41d3d7 # v0.27.0
               with:
@@ -112,6 +122,8 @@ jobs:
             pull-requests: write
         steps:
             - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+              with:
+                  persist-credentials: false
 
             - uses: reviewdog/action-yamllint@b5f7217d8c815ae374d1d55840d5e569d82f01f0 # v1.22.0
               with:
@@ -127,6 +139,8 @@ jobs:
             pull-requests: write
         steps:
             - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+              with:
+                  persist-credentials: false
 
             - uses: reviewdog/action-actionlint@6fb7acc99f4a1008869fa8a0f09cfca740837d9d # v1.72.0
               with:
