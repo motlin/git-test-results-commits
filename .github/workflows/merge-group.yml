@@ -113,7 +113,7 @@ jobs:
         steps:
             - uses: actions/checkout@v7
 
-            - uses: reviewdog/action-actionlint@v1.73.1
+            - uses: reviewdog/action-actionlint@v1.73.3
               with:
                   reporter: github-pr-check
                   fail_on_error: true
