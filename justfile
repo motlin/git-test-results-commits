@@ -19,15 +19,15 @@ fix:
 
 # `cargo +nightly build`
 build: fix
-	cargo +nightly build
+    cargo +nightly build
 
 # `cargo +nightly test`
 test: fix
-	cargo +nightly test
+    cargo +nightly test
 
 # `cargo +nightly run`
 run: fix
-	cargo +nightly run
+    cargo +nightly run
 
 # `cargo build --release`
 release: fix
@@ -52,7 +52,7 @@ install: release
     mkdir -p "$TARGET_DIR"
 
     # Define the source binary path
-    SOURCE_BINARY="{{justfile_directory()}}/target/release/test-results"
+    SOURCE_BINARY="{{ justfile_directory() }}/target/release/test-results"
 
     # Create or update the symlink
     ln -sf "$SOURCE_BINARY" "$TARGET_DIR/"
