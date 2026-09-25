@@ -125,7 +125,7 @@ jobs:
               with:
                   persist-credentials: false
 
-            - uses: reviewdog/action-yamllint@de68272fdca5f2a961fb309e0d2e13c2eb186d9e # v1.23.1
+            - uses: reviewdog/action-yamllint@290d92c84b22627946efc7fd6f038ade2d2beede # v1.25.0
               with:
                   reporter: github-pr-check
                   fail_on_error: true
