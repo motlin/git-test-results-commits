@@ -1,10 +1,15 @@
+[settings]
+# Skip releases younger than 24 hours when mise chooses a version (`mise upgrade`, `latest`, ranges),
+# enforcing the 24-hour version policy. An exact version pinned here still installs.
+minimum_release_age = "1d"
+
 [tools]
 pre-commit = "4.6.2"
 rust = "nightly"
 just = "1.58.0"
 node = "24.13.0"
 "npm:markdownlint-cli2" = "0.18.1"
-"npm:prettier" = "3.8.1"
+"npm:oxfmt-next-line" = { version = "0.75.0", allow_low_downloads = true }
 "npm:strip-ansi-cli" = "4.0.0"
 
 [env]

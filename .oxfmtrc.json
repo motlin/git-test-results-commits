@@ -1,0 +1,15 @@
+{
+	"braceStyle": "next-line",
+	"tabWidth": 4,
+	"useTabs": true,
+	"semi": true,
+	"singleQuote": false,
+	"trailingComma": "all",
+	"bracketSpacing": false,
+	"arrowParens": "always",
+	"printWidth": 120,
+	"proseWrap": "never",
+	"htmlWhitespaceSensitivity": "css",
+	"endOfLine": "lf",
+	"experimentalOperatorPosition": "end"
+}
