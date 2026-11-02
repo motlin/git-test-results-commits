@@ -71,7 +71,7 @@ jobs:
 
             - run: just test
 
-    prettier:
+    oxfmt:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -81,21 +81,8 @@ jobs:
 
             - uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # v5.2.7
 
-            - name: "Prettier Format Check"
-              run: prettier --check .
-
-    biome:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-              with:
-                  ref: ${{ github.event.pull_request.head.sha }}
-                  persist-credentials: false
-
-            - uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # v5.2.7
-
-            - name: "Biome Format Check"
-              run: npx @biomejs/biome ci
+            - name: "oxfmt-next-line Format Check"
+              run: oxfmt-next-line --check .
 
     reviewdog-markdownlint:
         runs-on: ubuntu-latest
@@ -152,7 +139,7 @@ jobs:
         name: All checks
         if: ${{ !cancelled() }}
         needs:
-            [pre-commit, build, test, prettier, biome, reviewdog-markdownlint, reviewdog-yamllint, reviewdog-actionlint]
+            [pre-commit, build, test, oxfmt, reviewdog-markdownlint, reviewdog-yamllint, reviewdog-actionlint]
         runs-on: ubuntu-latest
         steps:
             - uses: re-actors/alls-green@b5b5b37504aa4183270bd3d855c52a67f212be35 # v1.3.0

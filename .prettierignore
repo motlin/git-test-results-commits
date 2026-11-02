@@ -1,5 +1,7 @@
 # Ignore everything by default
 **/*
+# Re-include directories so oxfmt descends into them when given a directory like `.`
+!**/
 
 # Only format these file types
 !**/*.yml
@@ -7,6 +9,8 @@
 !**/*.md
 !**/*.html
 !**/*.css
+!**/*.json
+!**/*.jsonc
 
 # But still ignore these directories
 node_modules

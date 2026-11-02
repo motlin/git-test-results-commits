@@ -32,15 +32,9 @@ repos:
             types: [rust]
             pass_filenames: false
 
-          - id: biome
-            name: biome
-            entry: mise exec -- npx @biomejs/biome format --write
+          - id: oxfmt
+            name: oxfmt-next-line
+            entry: oxfmt-next-line --no-error-on-unmatched-pattern
             language: system
-            types: [file]
-            files: \.(json|jsonc)$
-
-          - id: prettier
-            name: prettier
-            entry: mise exec -- prettier --write --ignore-unknown
-            language: system
-            types: [file]
+            # Show "Finished in Xms on N files" so every run proves formatting happened.
+            verbose: true

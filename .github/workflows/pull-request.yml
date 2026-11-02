@@ -31,7 +31,7 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    biome-fix:
+    oxfmt-fix:
         runs-on: ubuntu-latest
         permissions:
             contents: write
@@ -50,59 +50,22 @@ jobs:
                   git config --global user.name "GitHub Actions"
                   git config --global user.email "github-actions@github.com"
 
-            - name: Run Biome Format
+            - name: Run oxfmt-next-line Format
               run: |
-                  npx @biomejs/biome format --write
+                  oxfmt-next-line .
 
                   if [[ -n $(git status --porcelain) ]]; then
-                    FIX_BRANCH="fix-${{ github.event.pull_request.number }}-biome"
+                    FIX_BRANCH="fix-${{ github.event.pull_request.number }}-oxfmt"
                     git switch --create $FIX_BRANCH
 
                     git add --all
-                    git commit --message "Apply Biome formatting."
+                    git commit --message "Apply oxfmt-next-line formatting."
                     git push --force origin $FIX_BRANCH
 
-                    echo "Biome formatting fixes have been pushed to the $FIX_BRANCH branch."
+                    echo "oxfmt-next-line formatting fixes have been pushed to the $FIX_BRANCH branch."
                     exit 1
                   else
-                    echo "No changes needed by Biome"
-                  fi
-
-    prettier-fix:
-        runs-on: ubuntu-latest
-        permissions:
-            contents: write
-            pull-requests: write
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-              with:
-                  ref: ${{ github.event.pull_request.head.ref }}
-                  repository: ${{ github.event.pull_request.head.repo.full_name }}
-                  token: ${{ secrets.GITHUB_TOKEN }}
-
-            - uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # v5.2.7
-
-            - name: Configure Git
-              run: |
-                  git config --global user.name "GitHub Actions"
-                  git config --global user.email "github-actions@github.com"
-
-            - name: Run Prettier Format
-              run: |
-                  prettier --write . '!.github/workflows/**'
-
-                  if [[ -n $(git status --porcelain) ]]; then
-                    FIX_BRANCH="fix-${{ github.event.pull_request.number }}-prettier"
-                    git switch --create $FIX_BRANCH
-
-                    git add --all
-                    git commit --message "Apply Prettier formatting."
-                    git push --force origin $FIX_BRANCH
-
-                    echo "Prettier formatting fixes have been pushed to the $FIX_BRANCH branch."
-                    exit 1
-                  else
-                    echo "No changes needed by Prettier"
+                    echo "No changes needed by oxfmt-next-line"
                   fi
 
     pre-commit-fix:
