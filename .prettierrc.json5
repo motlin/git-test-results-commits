@@ -52,5 +52,5 @@
 	// This is an experimental feature that may be removed in future versions
 	// Default: "end"
 	// Options: "start" | "end"
-	experimentalOperatorPosition: "start",
+	experimentalOperatorPosition: "end",
 }
